@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:18
+    container_name: curriculum_compare_db
+    environment:
+      POSTGRES_DB: curriculum_compare
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      LANG: C.UTF-8
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./db/docker-init/02-import.sql:/docker-entrypoint-initdb.d/02-import.sql:ro
+      - ./db/seed_mapping.sql:/docker-entrypoint-initdb.d/03-seed_mapping.sql:ro
+      - ./data:/docker-entrypoint-initdb.d/data:ro
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d curriculum_compare"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    container_name: curriculum_compare_web
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGPORT: 5432
+      PGDATABASE: curriculum_compare
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:

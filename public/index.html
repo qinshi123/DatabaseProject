@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>跨校培养方案对比分析</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">数据库课程项目 · PostgreSQL</p>
+          <h1 id="page-title">跨校培养方案对比分析</h1>
+          <p class="hero-copy">整合西南财经大学与上海财经大学培养方案数据，支持课程差异、学分要求、共同课程和必修课程等跨校查询。</p>
+        </div>
+        <div class="stat-strip" id="stat-strip">
+          <div><strong>-</strong><span>学校</span></div>
+          <div><strong>-</strong><span>课程</span></div>
+          <div><strong>-</strong><span>方案记录</span></div>
+        </div>
+      </section>
+
+      <section class="query-panel" aria-labelledby="page-title">
+        <div class="title-row">
+          <div>
+            <p class="eyebrow">自然语言转 SQL</p>
+            <h2>中文查询入口</h2>
+          </div>
+          <div class="status" id="status">等待查询</div>
+        </div>
+
+        <form id="query-form" class="query-form">
+          <label for="question">输入中文问题</label>
+          <div class="input-row">
+            <input id="question" name="question" type="text" value="比较两校金融学总学分要求" autocomplete="off">
+            <button type="submit">查询</button>
+          </div>
+        </form>
+
+        <div class="examples" id="examples" aria-label="示例问题"></div>
+      </section>
+
+      <section class="result-grid">
+        <div class="sql-panel">
+          <div class="section-head">
+            <h2>生成的 SQL</h2>
+            <span id="template-name">-</span>
+          </div>
+          <pre id="sql-output">提交问题后显示 SQL</pre>
+        </div>
+
+        <div class="table-panel">
+          <div class="section-head">
+            <h2>查询结果</h2>
+            <div class="result-actions">
+              <button type="button" id="export-csv">导出 CSV</button>
+              <span id="row-count">0 行</span>
+            </div>
+          </div>
+          <div id="table-output" class="table-output empty">暂无结果</div>
+        </div>
+      </section>
+
+      <section class="info-grid">
+        <div>
+          <h2>实现方式</h2>
+          <p>系统先识别问题中的学校、专业和查询意图，再匹配预设 SQL 模板，最后由 PostgreSQL 返回结果。专业归一化由数据库表 <code>major_mapping</code> 维护。</p>
+        </div>
+        <div>
+          <h2>可查询内容</h2>
+          <p>支持总学分、必修/选修/实践学分、课程差异、共同课程、必修课列表、类别汇总和学期培养方案查询。</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
