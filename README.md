@@ -14,6 +14,30 @@
 
 需要先安装 Docker Desktop。
 
+Windows 可以用下面任意一种方式安装。
+
+方式一：命令行安装：
+
+```powershell
+winget install Docker.DockerDesktop
+```
+
+方式二：官网下载 Docker Desktop：
+
+```text
+https://www.docker.com/products/docker-desktop/
+```
+
+安装完成后打开 Docker Desktop，等待左下角显示 Docker 正在运行。如果安装过程中提示启用 WSL 2，按提示安装并重启电脑。
+
+然后回到项目目录：
+
+```powershell
+cd DatabaseProject
+```
+
+启动项目：
+
 ```powershell
 docker compose up --build
 ```
@@ -25,6 +49,12 @@ http://localhost:3000
 ```
 
 Docker 会自动创建 PostgreSQL 数据库、建表、导入 `data/` 目录中的 CSV，并启动 Web 服务。
+
+停止项目：
+
+```powershell
+docker compose down
+```
 
 如果你修改了数据库初始化脚本或 CSV，想重新初始化数据库：
 
