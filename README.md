@@ -151,6 +151,5 @@ npm.cmd run test:api
 
 ## 注意
 
-- `.env` 中可能包含数据库密码，已经被 `.gitignore` 忽略，不要提交。
 - `data/` 中的 CSV 是 UTF-8 编码，无表头。
 - `university.id=1` 表示西南财经大学，`university.id=2` 表示上海财经大学。
